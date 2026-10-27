@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { auth } from '../api/endpoints';
+import { useEffect, useState } from 'react';
+import { auth, unitsApi } from '../api/endpoints';
 import { Field } from '../components/Bits';
 
 export default function LoginPage({ onSignedIn }) {
@@ -7,6 +7,14 @@ export default function LoginPage({ onSignedIn }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [waking, setWaking] = useState(false);
+
+  // שרת חינמי נרדם כשאין פעילות - מעירים אותו כבר בכניסה לדף
+  useEffect(() => {
+    const slow = setTimeout(() => setWaking(true), 2500);
+    unitsApi.list().catch(() => {}).finally(() => { clearTimeout(slow); setWaking(false); });
+    return () => clearTimeout(slow);
+  }, []);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -47,6 +55,7 @@ export default function LoginPage({ onSignedIn }) {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" />
         </Field>
 
+        {waking && <div className="waking"><span className="spinner" /> השרת מתעורר, זה יכול לקחת עד דקה...</div>}
         {error && <div className="alert">{error}</div>}
 
         <button className="btn primary block" disabled={busy || !username || !password}>

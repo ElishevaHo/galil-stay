@@ -499,6 +499,8 @@ tbody tr:hover { background: #fcfbf8; }
 .state-error { color: var(--red); }
 .spinner { width: 28px; height: 28px; border: 3px solid var(--olive-tint); border-top-color: var(--olive); border-radius: 50%; animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+.waking { display: flex; gap: 10px; align-items: center; justify-content: center; background: var(--amber-tint); color: var(--amber); padding: 10px 14px; border-radius: 10px; font-size: 14px; }
+.waking .spinner { width: 18px; height: 18px; border-width: 2px; border-top-color: var(--amber); }
 .alert { background: var(--red-tint); color: var(--red); padding: 10px 14px; border-radius: 10px; font-size: 14px; margin: 6px 0 12px; }
 
 /* ===== Login ===== */

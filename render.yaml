@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: galil-stay-server
+    runtime: docker
+    rootDir: server
+    plan: free
+    healthCheckPath: /api/units
